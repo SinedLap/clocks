@@ -19,7 +19,8 @@ header h1 {
 }
 
 main {
- flex: 10
+ flex: 10;
+ font-size: 60px;
 }
 
 footer {
@@ -37,6 +38,14 @@ footer p {
   justify-content: space-around;
 }
 
+.clocks {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.clocks p{
+  margin: 0;
+}
+
 .time-controllers{
   display: flex;
   flex-direction: column;
@@ -46,4 +55,26 @@ footer p {
 .time-controllers button{
   width: 300px;
   margin-top: 25px;
+}
+
+.timepicker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.timepicker-time {
+  display: flex;
+  font-size: 28px;
+}
+
+.timepicker-time input{
+  width: 88px;
+  font-size: 60px;
+}
+
+.timepicker-time p{
+  font-size: 52px;
+  margin: 0 10px;
 }
