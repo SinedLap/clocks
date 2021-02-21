@@ -1,4 +1,5 @@
 import './App.css';
+import Clock from './components/clock/clock';
 
 function App() {
   return (
@@ -7,7 +8,7 @@ function App() {
         <h1>UTC CLOCKS</h1>
       </header>
       <main>
-        <h1>Clocks AREA</h1>
+        <Clock timeZone={"Europe/Kiev"} />
       </main>
       <footer>
         <p>Sponsored by new Date().com</p>
