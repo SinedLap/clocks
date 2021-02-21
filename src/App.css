@@ -1,7 +1,33 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 98vh;
+}
+
 header {
-  flex: 1
+  flex: 1;
+  border-bottom: 1px solid #eeeeee;
+}
+
+header h1 {
+  margin: 0;
+  padding: 10px;
 }
 
 .app-header {
   text-transform: uppercase;
+}
+
+main {
+ flex: 10
+}
+
+footer {
+  flex: 1;
+  border-top: 1px solid #eeeeee;
+}
+
+footer p {
+  margin: 0;
+  padding: 10px;
 }

@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -7,6 +6,12 @@ function App() {
       <header className="app-header">
         <h1>UTC CLOCKS</h1>
       </header>
+      <main>
+        <h1>Clocks AREA</h1>
+      </main>
+      <footer>
+        <p>Sponsored by new Date().com</p>
+      </footer>
     </div>
   );
 }
