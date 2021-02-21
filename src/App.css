@@ -1,0 +1,7 @@
+header {
+  flex: 1
+}
+
+.app-header {
+  text-transform: uppercase;
+}
