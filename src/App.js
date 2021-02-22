@@ -7,16 +7,17 @@ function App() {
   const timeZones = [
     "Europe/London",
     "Europe/Kiev",
-    "Europe/Moscow",
-    "America/Port_of_Spain"
+    "Europe/Moscow"
   ]
+  const primaryTimeZone = 1
+  
   return (
     <div className="App">
       <header className="app-header">
         <h1>UTC CLOCKS</h1>
       </header>
       <main>
-        <ClockContainer timeZones={timeZones} />
+        <ClockContainer timeZones={timeZones} primaryTimeZone={primaryTimeZone} />
       </main>
       <footer>
         <p>Sponsored by new Date().com</p>

@@ -3,7 +3,7 @@ import Clock from './clock/clock'
 import '../App.css'
 import TimePicker from './timepicker'
 
-export default function ClockContainer ({ timeZones }) {
+export default function ClockContainer ({ timeZones, primaryTimeZone }) {
   const [openTimePicker, setOpenTimePicker] = useState(false)
   const [userChoosenTime, setUserChoosenTime] = useState({
     hours: '08', 
@@ -56,12 +56,16 @@ export default function ClockContainer ({ timeZones }) {
                                     zonesTimes={zonesTimes}
                                   />
             )
-          : timeZones.map(zone => <Clock 
+          : timeZones.map(zone => {
+            console.log(+userChoosenTime.hours + (times[zone].GMT - times[Object.keys(times)[primaryTimeZone]].GMT))
+          return <Clock 
                                     key={zone} 
                                     timeZone={zone} 
                                     zonesTimes={zonesTimes}
-                                    choosenTime={{hours: userChoosenTime.hours, minutes: userChoosenTime.minutes}}
-                                  />
+                                    choosenTime={{
+                                      hours: +(userChoosenTime.hours) + (times[zone].GMT - times[Object.keys(times)[primaryTimeZone]].GMT),
+                                      minutes: +userChoosenTime.minutes}}
+                                  />}
             )
         }
       </div>
@@ -74,7 +78,15 @@ export default function ClockContainer ({ timeZones }) {
             /> 
           : null}
         <button onClick={openPicker}>Выберите время (Киев)</button>
-        <button>Текущее время</button>
+        <button 
+          onClick={() => setUserChoosenTime({
+                          hours: '08', 
+                          minutes: '00', 
+                          setUp: false
+                        })
+        }>
+          Текущее время
+        </button>
       </div>
     </div>
   )
