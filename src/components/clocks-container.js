@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Clock from './clock/clock'
 import '../App.css'
 import TimePicker from './timepicker'
@@ -6,12 +6,28 @@ import TimePicker from './timepicker'
 export default function ClockContainer ({ timeZones, primaryTimeZone }) {
   const [openTimePicker, setOpenTimePicker] = useState(false)
   const [userChoosenTime, setUserChoosenTime] = useState({
+    notDefaultValues: false,
     hours: '08', 
     minutes: '00', 
     setUp: false
   })
-
   const [times, setTimes] = useState({})
+
+  useEffect(() => {
+    if(!userChoosenTime.setUp && userChoosenTime.notDefaultValues)
+      localStorage.setItem('time', JSON.stringify({
+        ...userChoosenTime,
+        hours: userChoosenTime.hours.toString(),
+        minutes: userChoosenTime.minutes.toString(),
+        setUp: false
+      }))
+  }, [userChoosenTime])  
+
+  useEffect(() => {
+    console.log('ОТРАБОТКА ЭФЕКТА 2')
+    if(JSON.parse(localStorage.getItem('time'))) 
+      setUserChoosenTime(JSON.parse(localStorage.getItem('time')))
+  }, [])
 
   const zonesTimes = (location, day, hours) => {
     if(!times[location])
@@ -24,7 +40,7 @@ export default function ClockContainer ({ timeZones, primaryTimeZone }) {
         }
       })
   }
-
+  
   const defineZonesGMT = (day, locationHours) => {
     const London = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/London"}))
     const LondonHours = London.getHours()
@@ -40,11 +56,13 @@ export default function ClockContainer ({ timeZones, primaryTimeZone }) {
   }
 
   const setUpUserTime = (name, value) => {
-    setUserChoosenTime({...userChoosenTime, [name]: value})
+    setUserChoosenTime({...userChoosenTime, [name]: value, notDefaultValues: true})
     if (name ==='setUp') {
       setOpenTimePicker(false)
     }
   }
+
+  console.log(userChoosenTime)
 
   return (
     <div>
@@ -56,16 +74,14 @@ export default function ClockContainer ({ timeZones, primaryTimeZone }) {
                                     zonesTimes={zonesTimes}
                                   />
             )
-          : timeZones.map(zone => {
-            console.log(+userChoosenTime.hours + (times[zone].GMT - times[Object.keys(times)[primaryTimeZone]].GMT))
-          return <Clock 
+          : timeZones.map(zone => <Clock 
                                     key={zone} 
                                     timeZone={zone} 
                                     zonesTimes={zonesTimes}
                                     choosenTime={{
                                       hours: +(userChoosenTime.hours) + (times[zone].GMT - times[Object.keys(times)[primaryTimeZone]].GMT),
                                       minutes: +userChoosenTime.minutes}}
-                                  />}
+                                  />
             )
         }
       </div>
