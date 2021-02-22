@@ -3,11 +3,11 @@ import '../App.css'
 
 export default function TimePicker ({ hours, minutes, setTime}) {
   const changeHours = (hours) => {
-    if (hours < 24 && hours > -1) setTime('hours', hours) 
+    if (hours < 24 && hours > -1) setTime('hours', hours < 10 ? `0${hours}` : hours) 
   }
 
   const changeMinutes = (minutes) => {
-    if (minutes < 60 && minutes > -1) setTime('minutes', minutes) 
+    if (minutes < 60 && minutes > -1) setTime('minutes', minutes < 10 ? `0${minutes}` : minutes) 
   }
 
   const changeSetUp = () => {
