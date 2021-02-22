@@ -12,6 +12,7 @@ export default function ClockContainer ({ timeZones, primaryTimeZone }) {
     setUp: false
   })
   const [times, setTimes] = useState({})
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if(!userChoosenTime.setUp && userChoosenTime.notDefaultValues)
@@ -51,8 +52,12 @@ export default function ClockContainer ({ timeZones, primaryTimeZone }) {
   }
 
   const openPicker = () => {
-    setOpenTimePicker(true)
-    setUserChoosenTime({...userChoosenTime, setUp: false})
+    setLoading(true)
+    new Promise(() => setTimeout(() => {
+      setOpenTimePicker(true)
+      setUserChoosenTime({...userChoosenTime, setUp: false})
+      setLoading(false)
+    }, 1000))   
   }
 
   const setUpUserTime = (name, value) => {
@@ -93,7 +98,7 @@ export default function ClockContainer ({ timeZones, primaryTimeZone }) {
               setTime={setUpUserTime}
             /> 
           : null}
-        <button onClick={openPicker}>Выберите время (Киев)</button>
+        <button onClick={openPicker} disabled={loading}>Выберите время (Киев)</button>
         <button 
           onClick={() => setUserChoosenTime({
                           hours: '08', 
