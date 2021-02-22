@@ -78,3 +78,13 @@ footer p {
   font-size: 52px;
   margin: 0 10px;
 }
+
+@media (max-width: 1000px) {
+  .clocks-container {
+    flex-direction: column;
+  }
+  .clocks {
+    display: flex;
+    justify-content: center;
+  }
+}
